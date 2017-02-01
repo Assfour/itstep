@@ -1,0 +1,66 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+
+void array_input(int A[],int ,int );
+void array_output(int A[], int );
+int find_index(int A[], int ,int );
+
+	int main(){
+		setlocale(0,"");
+		const int max_size=50;
+		int N,del,size,A[max_size];
+		cout<<"Вводите размер массива ";
+		cin>>size;
+		cout<<"Введите диапазон ";
+		cin>>del;
+		 cout<<"Введите номер N ";
+		 cin>>N;
+		 srand((unsigned)time(0));
+		 array_input(A,size,del);
+		 array_output(A,size);
+		 if(N>=0 && N<=del){
+		cout<<" Место для размещения нового элемента по индексом номер : "<< find_index(A,size,N)<<endl;
+		array_output(A,size);}
+		 else
+			 cout<<"не размещается этот элемент "<<endl;
+return 0;
+
+}
+
+// Заполнять массива числами
+void array_input(int A[],int size,int del)
+{
+	for(int i =0; i<size;i++)
+		A[i]=rand()%del;}
+// Вывод содержание массива на консоль
+void array_output(int A[], int size){
+	for(int i =0; i<size;i++)
+		cout<<A[i]<<" ";
+       cout<<endl;}
+
+// Искать индекс число N (место куда размещать число) 
+int find_index(int A[], int size,int N)
+{
+	int index,k;
+	for(int i=1; i<size; i++){     // отсортировка методом всатвками 
+      int temp=A[i];
+	for(int j=i -1; j>=0 && A[j]>temp; j--){
+		A[j+1]=A[j];
+		A[j]=temp;}}
+	for(int i=0; i<size; i++){       // в Отсортировом массиве найти в каком интервале находится новый элемент
+		if ( N>=A[i] && N<=A[i+1])
+			k=A[i+1];}
+		int Right, Left, key,middle;    // искать индекс (место для размещения нового элемента N)
+		 Left = 0;
+	     Right = size-1;
+		 key =k;
+	while (Left < Right){
+		middle = (Left + Right) / 2;
+		key <= A[middle] ? Right = middle: Left = middle+1;
+	}
+	if (key == A[Right])
+			index=Right+1;   //Мы считаем от 1 поэтому писал Right+1
+			return index;	
+
+	}
